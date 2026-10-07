@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strava Live Wallpaper</title>
+<meta name="description" content="Your Strava runs replayed as ghost races on a map, as a live Windows desktop wallpaper.">
+<style>
+  :root { --bg:#0a0e13; --panel:#121923; --line:#222d3b; --fg:#eaf0f7; --dim:#93a3b8; --accent:#fc4c02; --link:#7cc4ff; }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:17px/1.6 "Segoe UI",system-ui,sans-serif; }
+  a { color:var(--link); }
+  .wrap { max-width:860px; margin:0 auto; padding:0 24px; }
+  nav { display:flex; gap:22px; padding:20px 0; font-size:15px; }
+  nav a { color:var(--dim); text-decoration:none; } nav a:hover { color:var(--fg); }
+  nav b { color:var(--fg); margin-right:auto; letter-spacing:.02em; }
+  .hero { position:relative; overflow:hidden; border-bottom:1px solid var(--line); }
+  .hero svg { position:absolute; inset:0; width:100%; height:100%; opacity:.9; }
+  .hero .wrap { position:relative; padding-top:10px; padding-bottom:80px; }
+  h1 { font-size:clamp(38px,7vw,64px); line-height:1.05; margin:50px 0 18px; font-weight:300; letter-spacing:-.02em; }
+  h1 b { font-weight:600; }
+  .lead { color:var(--dim); font-size:20px; max-width:560px; margin:0 0 30px; text-shadow:0 2px 12px #0a0e13; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; font-weight:600; padding:13px 26px; border-radius:10px; text-decoration:none; }
+  .btn:hover { filter:brightness(1.1); }
+  .btn.ghost { background:transparent; border:1px solid var(--line); color:var(--fg); margin-left:10px; font-weight:500; }
+  .meta { color:var(--dim); font-size:14px; margin-top:14px; }
+  section { padding:54px 0 6px; }
+  h2 { font-size:28px; font-weight:600; margin:0 0 6px; letter-spacing:-.01em; }
+  h2 + p { color:var(--dim); margin-top:0; }
+  .features { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:22px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; }
+  .card h3 { margin:0 0 4px; font-size:16px; } .card p { margin:0; color:var(--dim); font-size:15px; }
+  ol.steps { list-style:none; counter-reset:s; padding:0; margin:20px 0 0; }
+  ol.steps > li { counter-increment:s; position:relative; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px 18px 66px; margin-bottom:12px; }
+  ol.steps > li::before { content:counter(s); position:absolute; left:18px; top:16px; width:34px; height:34px; border-radius:50%; background:var(--accent); color:#fff; font-weight:700; display:grid; place-items:center; }
+  ol.steps h3 { margin:0 0 4px; font-size:18px; }
+  ol.steps p, ol.steps ul { margin:6px 0 0; color:var(--dim); font-size:16px; }
+  ol.steps ul { padding-left:20px; }
+  code { background:#0a0e13; border:1px solid var(--line); padding:1px 7px; border-radius:6px; font:14px Consolas,monospace; color:var(--fg); overflow-wrap:anywhere; }
+  .note { border-left:3px solid var(--accent); padding:8px 16px; margin:18px 0 0; background:var(--panel); border-radius:0 10px 10px 0; color:var(--dim); font-size:15px; }
+  details { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 20px; margin-bottom:10px; }
+  summary { cursor:pointer; font-weight:600; } details p { color:var(--dim); margin:8px 0 0; font-size:16px; }
+  footer { margin-top:60px; border-top:1px solid var(--line); padding:26px 0 50px; color:var(--dim); font-size:13px; }
+  @media (prefers-reduced-motion: reduce) { .r { animation:none !important; stroke-dasharray:none !important; opacity:.4; } }
+</style>
+</head>
+<body>
+<div class="hero">
+  <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><filter id="g"><feGaussianBlur stdDeviation="3"/></filter>
+      <style>.r{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:260 1400;animation:run 9s linear infinite}
+      @keyframes run{from{stroke-dashoffset:260}to{stroke-dashoffset:-1400}}</style></defs>
+    <g opacity=".5" stroke="#1b2634" stroke-width="1">
+      <path d="M0 120H1200M0 250H1200M0 390H1200M180 0V520M420 0V520M700 0V520M960 0V520" fill="none"/>
+    </g>
+    <g>
+      <path class="r" filter="url(#g)" stroke="#3ea6ff" d="M700 470C760 330 900 380 940 270S1100 150 1060 90 880 60 820 150 660 260 700 340" style="animation-delay:-1s"/>
+      <path class="r" filter="url(#g)" stroke="#4dff88" d="M620 430C700 260 820 330 880 230S1010 120 1120 160" style="animation-delay:-3s"/>
+      <path class="r" filter="url(#g)" stroke="#ffd23e" d="M760 480C830 410 760 300 860 270S1020 330 1100 250" style="animation-delay:-5s"/>
+      <path class="r" filter="url(#g)" stroke="#ff5a3d" d="M560 360C640 300 700 380 790 330S900 190 1000 210" style="animation-delay:-7s"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <nav><b>Strava Live Wallpaper</b><a href="#install">Set up</a><a href="#wallpaper">Lively</a><a href="#help">Help</a></nav>
+    <h1>Your runs, racing<br><b>on your desktop.</b></h1>
+    <p class="lead">Every run you've logged on Strava, replayed as glowing ghost races on a dark map, as a live wallpaper behind your desktop icons.</p>
+    <a class="btn" href="StravaScreensaver-win64.zip" download>Download for Windows</a><a class="btn ghost" href="#install">How to set it up</a>
+    <p class="meta">Windows 10 / 11, 64-bit · free · your data stays on your PC</p>
+  </div>
+</div>
+
+<main class="wrap">
+  <section>
+    <h2>What you get</h2>
+    <div class="features">
+      <div class="card"><h3>Ghost races by area</h3><p>The map flies to one part of your running history at a time and replays up to 8 runs side by side at their real relative pace.</p></div>
+      <div class="card"><h3>Colour by what matters</h3><p>Distance by default. Switch to year, pace or road vs trail, or let it cycle through all of them.</p></div>
+      <div class="card"><h3>Stats and captions</h3><p>Total distance, runs, this year, longest run and more, plus date, name, distance and pace for each runner.</p></div>
+      <div class="card"><h3>Made for the desktop</h3><p>A calm replay with captions and stats tucked on the right, so your desktop icons stay clear. No background process needed.</p></div>
+    </div>
+  </section>
+
+  <section id="install">
+    <h2>Set up</h2>
+    <p>About five minutes, mostly the one-time Strava setup.</p>
+    <ol class="steps">
+      <li><h3>Download and unzip</h3>
+        <p>Download <a href="StravaScreensaver-win64.zip">StravaScreensaver-win64.zip</a> and extract it anywhere (right-click, Extract All).</p></li>
+      <li><h3>Run the installer</h3>
+        <p>Open the extracted folder and double-click <code>Install.cmd</code>. It copies the app to <code>%LOCALAPPDATA%\StravaScreensaver</code>, prepares the wallpaper folder, adds a quick refresh at login (it fetches new runs, then exits) and opens the settings. It does not change your screensaver. No administrator rights needed.</p>
+        <p>The app isn't code-signed, so Windows SmartScreen may warn you. Choose <b>More info</b>, then <b>Run anyway</b>.</p></li>
+      <li><h3>Create your Strava API app (one time)</h3>
+        <p>Strava only lets an app read your runs through an API app you own. It's free:</p>
+        <ul>
+          <li>Open <a href="https://www.strava.com/settings/api" target="_blank" rel="noopener">strava.com/settings/api</a> and create an application.</li>
+          <li>Any name and category. Website: <code>http://localhost</code></li>
+          <li><b>Authorization Callback Domain:</b> <code>localhost</code></li>
+          <li>Copy the <b>Client ID</b> and <b>Client Secret</b>.</li>
+        </ul></li>
+      <li><h3>Connect and sync</h3>
+        <p>In the settings window paste the Client ID and Secret and click <b>Save &amp; connect to Strava</b>. Approve access in your browser. Your runs sync in a few seconds (longer for a very long history).</p></li>
+      <li><h3>Check the preview</h3>
+        <p>Click <b>Preview</b> in the settings to see your runs animate fullscreen (press any key to leave), and pick your map style and colours. Then continue to Lively below.</p></li>
+    </ol>
+    <p class="note">Your client secret and runs are stored only on your PC, in <code>%APPDATA%\strava-screensaver</code>. Reopen the settings any time by running <code>%LOCALAPPDATA%\StravaScreensaver\StravaScreensaver.exe</code>.</p>
+  </section>
+
+  <section id="wallpaper">
+    <h2>Put it on your desktop with Lively</h2>
+    <p>Windows has no built-in live wallpapers, so use the free <b>Lively Wallpaper</b> app. The wallpaper is a small self-contained folder with your runs inside. Nothing needs to run in the background.</p>
+    <ol class="steps">
+      <li><h3>Connect Strava and export</h3>
+        <p>Finish the install steps above so your runs are synced. The installer already creates the wallpaper folder; click <b>Export wallpaper</b> in the settings (section 4) any time to see its location or refresh it.</p>
+        <p>It lives at <code>%APPDATA%\strava-screensaver\wallpaper\index.html</code>. After that it refreshes itself whenever new runs sync or you change a setting. A quick refresh runs each time you log in (a few seconds, then it exits) to fetch new runs.</p></li>
+      <li><h3>Install Lively Wallpaper</h3>
+        <p>Get it free from the <a href="https://apps.microsoft.com/detail/9ntm2qc6qws7" target="_blank" rel="noopener">Microsoft Store</a> or <a href="https://rocksdanister.github.io/lively/" target="_blank" rel="noopener">rocksdanister.github.io/lively</a>.</p></li>
+      <li><h3>Add the wallpaper</h3>
+        <p>In Lively click <b>+ Add Wallpaper</b> (top left), then <b>Browse</b>, and pick the <code>index.html</code> from the folder above. Tip: paste <code>%APPDATA%\strava-screensaver\wallpaper</code> into the file dialog's address bar to jump there. Name it "Strava runs" and click <b>OK</b>.</p></li>
+      <li><h3>Set it</h3>
+        <p>Click the new tile in your library to apply it. It now plays behind your desktop icons.</p></li>
+    </ol>
+    <div class="note">Wallpaper mode replays slowly and puts the captions, legend and stats on the right, so your desktop icons on the left stay clear. Turn any of them off in the settings.</div>
+    <div class="note">New runs show up after your next login (or click Export wallpaper in the settings), once Lively restarts or you re-apply the wallpaper.</div>
+    <details style="margin-top:14px"><summary>Advanced: live wallpaper server (always up to date, one background process)</summary>
+      <p>If you'd rather have Lively load a web address that is always current, install with <code>.\Install.ps1 -WithWallpaperServer</code> from PowerShell in the extracted folder. It starts a small local server at login. In Lively, paste <code>http://localhost:8765/wallpaper.html</code> into the Add Wallpaper box instead of browsing for a file.</p></details>
+  </section>
+
+  <section id="settings">
+    <h2>Make it yours</h2>
+    <p>Open the settings window to choose the map (dark, dark without labels, satellite, terrain), what colour means, kilometres or miles, how many runners per area, replay speed, and which overlays to show. Changes apply the next time it starts.</p>
+  </section>
+
+  <section id="help">
+    <h2>Help</h2>
+    <details><summary>The wallpaper says "No runs to show yet"</summary><p>Open the settings and connect Strava. If you already did, click <b>Full resync</b>.</p></details>
+    <details><summary>Strava says the redirect or callback is invalid</summary><p>In your Strava API app, <b>Authorization Callback Domain</b> must be exactly <code>localhost</code>. Port 53682 must also be free during sign-in.</p></details>
+    <details><summary>The map is blank or shows an error</summary><p>The map tiles need an internet connection (including in the wallpaper). If you're offline or a style is blocked, pick another map style in settings.</p></details>
+    <details><summary>Only some activities show up</summary><p>Only runs (road and trail) that have a GPS route are shown. Treadmill and manually entered runs have no route to draw.</p></details>
+    <details><summary>Can I also use it as a screensaver?</summary><p>Yes. Run <code>.\Install.ps1 -WithScreensaver</code> from PowerShell in the extracted folder. It sets the screensaver for your user and starts after 5 minutes idle (add <code>-TimeoutMinutes 10</code> to change that).</p></details>
+    <details><summary>How do I uninstall?</summary><p>Double-click <code>Uninstall.cmd</code> in the extracted folder. It removes the app, the screensaver setting (if you added it) and the optional server startup entry. To also delete your saved credentials and runs, delete <code>%APPDATA%\strava-screensaver</code>.</p></details>
+  </section>
+</main>
+<footer><div class="wrap">Not affiliated with or endorsed by Strava. Strava is a trademark of Strava, Inc. Map data © OpenStreetMap contributors; tiles © Esri, OpenTopoMap. Built with Electron and Leaflet.</div></footer>
+</body>
+</html>
